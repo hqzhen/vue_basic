@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>姓名案例</title>
+  <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+  <div id="root">
+    姓：<input type="text" v-model:value="lastName"/><br>
+    名：<input type="text" v-model:value="firstName"/><br>
+    插值法：<span>{{lastName}}-{{firstName}}</span><br>
+    method：<span>{{fullName()}}</span><br>
+    计算属性：<span>{{fullName1}}</span>
+  </div>
+ <script  type="text/javascript">
+   Vue.config.productionTip=false
+   const vm = new Vue({
+     el:'#root',
+     data:{
+       firstName:'三',
+       lastName:'张',
+       url:'https://www.zhqwfj.xyz'
+     },
+     computed:{
+      fullName1:{
+        get(){
+          return this.lastName +'-'+this.firstName
+        }
+      } 
+     },
+     methods:{
+      fullName(){
+        return this.lastName +'-'+this.firstName
+      }
+     }
+   })
+   console.log(vm)
+ </script>
+ 
+  
+</body>
+</html>
