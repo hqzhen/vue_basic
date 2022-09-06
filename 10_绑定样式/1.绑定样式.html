@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>绑定样式</title>
+  <style>
+    .basic{
+      width: 400px;
+      height: 100px;
+      border: 1px solid black;
+    }
+    .happy{
+      border: 4px solid red;
+      background-color: rgba(255,255,0,0.644);
+      background: linear-gradient(30deg,yellow,pink,orange,yellow);
+    }
+    .sad{
+      border: 4px solid green;
+      background-color: rgba(255,255,0,0.644);
+    }
+    .normal{
+      border: 4px solid blueviolet;
+      background-color: rgba(0, 208, 255, 0.611);
+    }
+    .zhq1{
+      font-size: 20px;
+    }
+    .zhq2{
+      text-shadow: 2px 2px #e100ff;
+    }
+    .zhq3{
+      border-radius:25px;
+    }
+  </style>
+  <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+  <div id="root">
+    <div class="basic" :class="mood" @click="changeMood">{{name}}</div>
+    <div class="basic happy" :class="arr" @click="changeMood">{{name}}</div>
+    <div class="basic normal" :class="classObj" @click="changeMood">{{name}}</div>
+    <div class="basic" :style="styleObj" @click="changeMood">{{name}}</div>
+  </div>
+ <script  type="text/javascript">
+   Vue.config.productionTip=false
+   new Vue({
+     el:'#root',
+     data:{
+       name:'夏木',
+       mood:'normal',
+       arr:['zhq1','zhq2','zhq3'],
+       classObj:{
+         zhq1:false,
+         zhq2:false,
+         zhq3:true
+       },
+       styleObj:{
+         fontSize:'40px',
+         color:'red'
+       }
+     },
+     methods: {
+      changeMood(){
+        const arr =['happy','sad','normal']
+        this.mode=arr[Math.floor(Math.random()*3)]
+       }
+     },
+   })
+  
+ </script>
+ 
+  
+</body>
+</html>
