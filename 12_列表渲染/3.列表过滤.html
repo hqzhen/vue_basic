@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>列表过滤</title>
+  <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+  <div id="root">
+   <h2>人员列表</h2>
+   <button @click="add">添加</button>
+   <!--用watch实现-->
+   <input type="text" v-model="keyWord" placeholder="请输入名字">
+   <ul>
+    <li v-for="(person,index) in filPersons" :key="person.id">
+      {{index}}-{{person.name}}-{{person.age}}
+    </li>
+   </ul>
+   <!--用computed实现-->
+   <input type="text" v-model="keyWord1" placeholder="请输入名字">
+   <button @click="sortType = 2 ">年龄升序</button>
+   <button @click="sortType = 1 ">年龄降序</button>
+   <button @click="sortType = 0 ">原顺序</button>
+   <ul>
+    <li v-for="(person,index) in filPersons1" :key="person.id">
+      {{index}}-{{person.name}}-{{person.age}}
+    </li>
+   </ul>
+  </div>
+ <script  type="text/javascript">
+   Vue.config.productionTip=false
+   new Vue({
+     el:'#root',
+     data:{
+      keyWord:'',
+      keyWord1:'',
+      sortType:0,
+      persons:[
+        {id:'001',name:'马冬梅',age:28},
+        {id:'002',name:'周冬雨',age:19},
+        {id:'003',name:'周杰伦',age:20},
+        {id:'004',name:'扁嘴伦',age:21},
+      ],
+      filPersons:[]
+     },
+     computed:{
+      filPersons1(){
+        const arr = this.persons.filter((p)=>{
+            return p.name.indexOf(this.keyWord1) !== -1
+        })
+        if(this.sortType){
+          arr.sort((v1,v2)=>{
+            return this.sortType===1 ? v2.age-v1.age : v1.age-v2.age
+          })
+        }
+        return arr
+      }
+     },
+     methods: {
+       add(){
+         const p={id:'005',name:'赵六',age:28}
+         this.persons.unshift(p)
+       }
+     },
+     watch:{
+       keyWord:{
+        immediate:true,
+        handler(val){
+          this.filPersons=this.persons.filter((p)=>{
+            return p.name.indexOf(val) !== -1
+          })
+        }
+       }
+     }
+   })
+ </script>
+</body>
+</html>
